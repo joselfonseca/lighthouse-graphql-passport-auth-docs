@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'baseUrl' => 'https://lighthouse-passport-auth.web.app/',
+    'baseUrl' => 'https://lighthouse-php-auth.com/',
     'production' => true,
 
     // DocSearch credentials
