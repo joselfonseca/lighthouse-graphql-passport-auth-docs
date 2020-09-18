@@ -55,7 +55,7 @@ If you want to customize the login of any of the resolver, you can update the pu
 ````
 You should now create a resolver `App\\GraphQL\\Mutations\\Login` that is used in the login mutation.
 
-## Ignoring the migration {#ignoring-migration}
+## Ignoring migrations {#ignoring-migrations}
 The package comes with a migration for the socialite integration, if you want to ignore that migration and not have it registered, make sure you delete the migration file exported from the configuration and set the following value to false in the config file.
 
 ````php

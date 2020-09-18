@@ -27,6 +27,9 @@ return [
             ],
             'Global Middleware' => [
                 'url' => 'docs/usage/#global-middleware'
+            ],
+            'Events' => [
+                'url' => 'docs/usage/#events'
             ]
         ],
     ],
@@ -39,8 +42,8 @@ return [
             'Customize resolvers' => [
                 'url' => 'docs/customization/#customize-resolvers'
             ],
-            'Ignore Migration' => [
-                'url' => 'docs/customization/#ignore-migration'
+            'Ignore Migrations' => [
+                'url' => 'docs/customization/#ignore-migrations'
             ]
         ]
     ],

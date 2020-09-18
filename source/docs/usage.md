@@ -173,3 +173,163 @@ This will set the logged in user in the guard for the context object
 ```php
 return $context->user(); // will return the logged in user.
 ``` 
+## Events emitted by this package {#events}
+
+**UserLoggedIn:** This event will be emitted when a new access token is created via the login mutation, this event receives the user model
+
+```php
+<?php
+
+namespace Joselfonseca\LighthouseGraphQLPassport\Events;
+
+use Illuminate\Contracts\Auth\Authenticatable;
+
+/**
+ * Class UserLoggedIn.
+ */
+class UserLoggedIn
+{
+    /**
+     * @var Authenticatable
+     */
+    public $user;
+
+    /**
+     * UserLoggedIn constructor.
+     *
+     * @param Authenticatable $user
+     */
+    public function __construct(Authenticatable $user)
+    {
+        $this->user = $user;
+    }
+}
+``` 
+
+**UserLoggedOut** This event will be emitted when the logout mutation was called and the token has been revoked, this event receives the user model
+
+````php
+<?php
+
+namespace Joselfonseca\LighthouseGraphQLPassport\Events;
+
+use Illuminate\Contracts\Auth\Authenticatable;
+
+/**
+ * Class UserLoggedOut.
+ */
+class UserLoggedOut
+{
+    /**
+     * @var Authenticatable
+     */
+    public $user;
+
+    /**
+     * UserLoggedOut constructor.
+     *
+     * @param Authenticatable $user
+     */
+    public function __construct(Authenticatable $user)
+    {
+        $this->user = $user;
+    }
+}
+````
+
+**Illuminate\Auth\Events\Registered** This event will be emitted when the user is registered via the register mutation or using the socialite integration, this event receives the user model and is part of the Laravel Default Authentication system
+**UserRefreshedToken** This event will be emitted when the user refresh a token via de refresh token mutation, it received the user model.
+
+````php
+<?php
+
+namespace Joselfonseca\LighthouseGraphQLPassport\Events;
+
+use Illuminate\Contracts\Auth\Authenticatable;
+
+/**
+ * Class UserRefreshedToken.
+ */
+class UserRefreshedToken
+{
+    /**
+     * @var Authenticatable
+     */
+    public $user;
+
+    /**
+     * UserRefreshedToken constructor.
+     *
+     * @param Authenticatable $user
+     */
+    public function __construct(Authenticatable $user)
+    {
+        $this->user = $user;
+    }
+}
+````
+
+**PasswordUpdated** This event will be emmited from the `updatePassword` and `updateForgottenPassword` mutations after the user has set the new password. This event receives the user model as well.
+
+````php
+
+<?php
+
+namespace Joselfonseca\LighthouseGraphQLPassport\Events;
+
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+
+/**
+ * Class PasswordUpdated.
+ */
+class PasswordUpdated
+{
+    use Dispatchable;
+    use SerializesModels;
+
+    /**
+     * @var
+     */
+    public $user;
+
+    /**
+     * PasswordUpdated constructor.
+     *
+     * @param $user
+     */
+    public function __construct($user)
+    {
+        $this->user = $user;
+    }
+}
+````
+**ForgotPasswordRequested** This event will be emitted when the user requests an email for forgotten password. In this case only the email is passed to the event. 
+
+```php
+<?php
+
+namespace Joselfonseca\LighthouseGraphQLPassport\Events;
+
+/**
+ * Class ForgotPasswordRequested.
+ */
+class ForgotPasswordRequested
+{
+    /**
+     * @var string
+     */
+    public $email;
+
+    /**
+     * ForgotPasswordRequested constructor.
+     *
+     * @param string $email
+     */
+    public function __construct(string $email)
+    {
+        $this->email = $email;
+    }
+}
+```
+  
