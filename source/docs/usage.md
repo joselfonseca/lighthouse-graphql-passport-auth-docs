@@ -35,7 +35,7 @@ extend type Mutation {
 
 ## Using the email verification {#email-verification}
 
-If you want to use the email verification feature that comes with laravel, please follow the instruction in the laravel documentation to configure the model in [https://laravel.com/docs/6.x/verification](https://laravel.com/docs/6.x/verification), once that is done add the following traits
+If you want to use the email verification feature that comes with laravel, please follow the instruction in the laravel documentation to configure the model in [https://laravel.com/docs/8.x/verification](https://laravel.com/docs/8.x/verification), once that is done add the following traits
 
 ```php
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -89,29 +89,46 @@ class User extends Authenticatable
     use HasSocialLogin;
 }
 ```
-This will add a method that is used by the mutation to get the user from the social network and create or get it from the DB based on the `provider` and `provider_id`
+This will add a method that is used by the mutation to get the user from the social network and create or get it from the DB based on the `provider` and `provider_id` in the social providers table.
 
 ```php
+    public function socialProviders()
+    {
+        return $this->hasMany(SocialProvider::class);
+    }
+
     /**
      * @param Request $request
+     *
      * @return mixed
      */
     public static function byOAuthToken(Request $request)
     {
         $userData = Socialite::driver($request->get('provider'))->userFromToken($request->get('token'));
+
         try {
-            $user = static::where('provider', Str::lower($request->get('provider')))->where('provider_id', $userData->getId())->firstOrFail();
+            $user = static::whereHas('socialProviders', function ($query) use ($request, $userData) {
+                $query->where('provider', Str::lower($request->get('provider')))->where('provider_id', $userData->getId());
+            })->firstOrFail();
         } catch (ModelNotFoundException $e) {
-            $user = static::create([
-                'name' => $userData->getName(),
-                'email' => $userData->getEmail(),
+            $user = static::where('email', $userData->getEmail())->first();
+            if (! $user) {
+                $user = static::create([
+                    'name' => $userData->getName(),
+                    'email' => $userData->getEmail(),
+                    'uuid' => Str::uuid(),
+                    'password' => Hash::make(Str::random(16)),
+                    'email_verified_at' => now(),
+                ]);
+            }
+            SocialProvider::create([
+                'user_id' => $user->id,
                 'provider' => $request->get('provider'),
                 'provider_id' => $userData->getId(),
-                'password' => Hash::make(Str::random(16)),
-                'avatar' => $userData->getAvatar()
             ]);
         }
-        Auth::onceUsingId($user->id);
+        Auth::setUser($user);
+
         return $user;
     }
 ``` 

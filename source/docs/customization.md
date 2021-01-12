@@ -70,6 +70,6 @@ The package comes with a migration for the socialite integration, if you want to
     */
     'migrations' => false,
 ````
-This way the migration won't be registered and it will not run
+This way the migration won't be registered, and it will not run
 
 > If you want to use Socialite you'll need this migration unless you write your own resolver to handle the social login and update the HasSocialLogin trait.

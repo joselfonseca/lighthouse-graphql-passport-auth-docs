@@ -7,7 +7,7 @@ section: content
 
 # Getting Started {#getting-started}
 
-GraphQL mutations for Laravel Passport using Lighthouse PHP ^3.2.
+GraphQL mutations for Laravel Passport using Lighthouse PHP.
 
 ## Motivation {#getting-started-motivation}
 
@@ -28,7 +28,7 @@ You should not use this package if you are using a 3rd party authentication syst
 
 ## Why the OAuth client is used in the backend and not from the client application?
 
-When an application that needs to be re compiled and re deploy to stores like an iOS app needs to change the client for whatever reason, it becomes a blocker for QA or even brakes the production app if the client is removed. The app will not work until the new version with the updated keys is deployed. There are alternatives to store this configuration in the client but for this use case we are relying on the backend to be the OAuth client
+When an application that needs to be re compiled and re-deploy to stores like an iOS app needs to change the client for whatever reason, it becomes a blocker for QA or even brakes the production app if the client is removed. The app will not work until the new version with the updated keys is deployed. There are alternatives to store this configuration in the client but for this use case we are relying on the backend to be the OAuth client
 
 ## Change log
 

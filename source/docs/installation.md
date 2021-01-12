@@ -6,7 +6,7 @@ section: content
 ---
 
 # Pre requisites {#installation-pre-requisites}
-This package requires you to install [Laravel Passport](https://laravel.com/docs/7.x/passport) prior to use it
+This package requires you to install [Laravel Passport](https://laravel.com/docs/8.x/passport) prior to use it
 
 # Installation {#installation-installation}
 To install run 
