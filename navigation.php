@@ -47,5 +47,12 @@ return [
             ]
         ]
     ],
+    'Tutorials' => [
+        'children' => [
+            'Getting Started with GraphQL Authentication' => [
+                'url' => 'tutorials/getting-started'
+            ]
+        ]
+    ],
     'Github' => 'https://github.com/joselfonseca/lighthouse-graphql-passport-auth',
 ];

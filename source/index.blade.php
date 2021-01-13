@@ -11,7 +11,9 @@
                     <div class="flex my-10">
                         <a href="/docs/getting-started" title="{{ $page->siteName }} getting started" class="bg-blue-500 hover:bg-blue-600 font-normal text-white hover:text-white rounded mr-4 py-2 px-6">Get Started</a>
 
-                        <a href="https://github.com/joselfonseca/lighthouse-graphql-passport-auth" title="Github" class="bg-gray-400 hover:bg-gray-600 text-blue-900 font-normal hover:text-white rounded py-2 px-6">Github</a>
+                        <a href="https://github.com/joselfonseca/lighthouse-graphql-passport-auth" title="Github" class="bg-gray-400 hover:bg-gray-600 text-white font-normal hover:text-white mr-4 rounded py-2 px-6">Github</a>
+
+                        <a href="/tutorials/getting-started/" title="{{ $page->siteName }} tutorial" class="bg-blue-500 hover:bg-blue-600 font-normal text-white hover:text-white rounded mr-4 py-2 px-6">Tutorial</a>
                     </div>
                 </div>
                 <div class="flex justify-end w-1/3">
@@ -42,16 +44,16 @@
         <div class="container max-w-6xl mx-auto px-6 py-10 md:py-12">
             <h4 class="text-blue-900 text-center">Install the package</h4>
             <div class="text-gray-400">
-                <pre class="">
-                    <code>
+                <pre>
+                    <code class="language-bash">
                         composer require joselfonseca/lighthouse-graphql-passport-auth
                     </code>
                 </pre>
             </div>
             <h4 class="text-blue-900 text-center">Get this default Schema for authentication with Laravel Passport</h4>
             <div class="text-gray-400">
-                <pre class="">
-                    <code>
+                <pre>
+                    <code class="language-graphql">
                         extend type Mutation {
                             login(input: LoginInput): AuthPayload!
                             refreshToken(input: RefreshTokenInput): RefreshTokenPayload!
