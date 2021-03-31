@@ -8,7 +8,7 @@ section: content
 # Default schema {#default-schema}
 By default the schema is defined internally in the package, once published it will be saved in `graphql/auth.graphql` and it looks like this:
 
-```
+```graphql
 input LoginInput {
     username: String!
     password: String!
@@ -77,7 +77,7 @@ input NewPasswordWithCodeInput {
 
 input RegisterInput {
     name: String! @rules(apply: ["required", "string"])
-    email: String! @rules(apply: ["required", "email"])
+    email: String! @rules(apply: ["required", "email", "unique:users,email"])
     password: String! @rules(apply: ["required", "confirmed", "min:8"])
     password_confirmation: String!
 }
@@ -92,10 +92,10 @@ input VerifyEmailInput {
 }
 
 input UpdatePassword {
+    old_password: String!
     password: String! @rules(apply: ["required", "confirmed", "min:8"])
     password_confirmation: String!
 }
-
 
 extend type Mutation {
     login(input: LoginInput @spread): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Login@resolve")
@@ -104,10 +104,11 @@ extend type Mutation {
     forgotPassword(input: ForgotPasswordInput! @spread): ForgotPasswordResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\ForgotPassword@resolve")
     updateForgottenPassword(input: NewPasswordWithCodeInput @spread): ForgotPasswordResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\ResetPassword@resolve")
     register(input: RegisterInput @spread): RegisterResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Register@resolve")
-    socialLogin(input: SocialLoginInput! @spread): AuthPayload @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\SocialLogin@resolve")
+    socialLogin(input: SocialLoginInput! @spread): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\SocialLogin@resolve")
     verifyEmail(input: VerifyEmailInput! @spread): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\VerifyEmail@resolve")
     updatePassword(input: UpdatePassword! @spread): UpdatePasswordResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\UpdatePassword@resolve") @guard(with: ["api"])
 }
+
 ```
 
 In the configuration file you can now set the schema file to be used for the exported one like this:
