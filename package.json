@@ -20,7 +20,7 @@
         "laravel-mix": "^6.0.5",
         "laravel-mix-purgecss": "^3.0.0",
         "node-cmd": "^3.0.0",
-        "postcss": "^8.2.4",
+        "postcss": "^8.2.10",
         "sass": "^1.30.0",
         "sass-loader": "^7.3.1",
         "tailwindcss": "^2.0.2",
