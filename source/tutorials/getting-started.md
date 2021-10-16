@@ -99,7 +99,7 @@ This should conclude the passport configuration.
 Now let’s configure and install the Lighthouse PHP package. since it was already pulled from composer we just need to run the following commands to publish the default schema.
 
 ```bash
-php artisan vendor:publish --provider="Nuwave\Lighthouse\LighthouseServiceProvider" --tag=schema
+php artisan vendor:publish --tag=lighthouse-schema
 ```
 
 This command will create a file in graphql/schema.graphql with the following schema
